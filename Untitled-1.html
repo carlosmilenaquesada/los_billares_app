@@ -1,0 +1,219 @@
+<body>
+
+    <div class="container">
+      <form class="form-signin" role="form" method="post" action="operaciones/opLogin.php">
+				<img border="none" src="images/logo.jpg" class="img-responsive" alt="Catering Los Billares">
+				<center><h2>Centros de Salud</h2></center><br>
+				Email<input type="text" id="email" name="email" class="form-control" required="" autofocus=""><br>
+        Clave<input type="password" id="clave" name="clave" class="form-control" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button><br>
+				<p class="text-right"><a href="javascript:registro();" style="text-decoration: underline;">Registrarme</a></p>
+				<p class="text-center"><a href="javascript:recordarClave();" style="text-decoration: none; font-style: italic;">¿Has olvidado la clave?</a></p>
+				      </form>
+
+			<!-- FORMULARIO - RECORDAR CLAVE -->
+			<div class="modal fade" id="modal-form-recordar-clave" tabindex="-1" role="dialog" aria-labelledby="modal-form-recordar-clave-label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal-form-recordar-clave-label">Recordar clave</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" role="form">
+								<div id="grupoEmailClave" class="form-group">
+									<label for="inputEmailClave" class="col-sm-3 control-label">Email *</label>
+									<div class="col-sm-9">
+										<input type="email" class="form-control" id="inputEmailClave" placeholder="Introduzca su email de acceso" maxlength="128">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" onclick="javascript:enviarClave()">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar
+							</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- FORMULARIO - REGISTRO -->
+			<div class="modal fade" id="modal-form-registro" tabindex="-1" role="dialog" aria-labelledby="modal-form-registro-label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal-form-registro-label"><i class="fa fa-user-md"></i>&nbsp;Registro</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" role="form">
+								<div id="grupoCodAutorizacion" class="form-group">
+									<label for="inputCodAutorizacion" class="col-sm-4 control-label">Cód. Autorización *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputCodAutorizacion" placeholder="Código de autorización proporcionado por los billares" maxlength="128">
+									</div>
+								</div>
+								<div id="grupoNombre" class="form-group">
+									<label for="inputNombre" class="col-sm-4 control-label">Nombre *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputNombre" placeholder="Nombre" maxlength="128">
+									</div>
+								</div>
+								<div id="grupoApellidos" class="form-group">
+									<label for="inputApellidos" class="col-sm-4 control-label">Apellidos *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos" maxlength="128">
+									</div>
+								</div>
+								<div id="grupoDni" class="form-group">
+									<label for="inputDni" class="col-sm-4 control-label">DNI</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputDni" placeholder="DNI" maxlength="9">
+									</div>
+								</div>
+								<div id="grupoEmail" class="form-group">
+									<label for="inputEmail" class="col-sm-4 control-label">Email *</label>
+									<div class="col-sm-8">
+										<input type="email" class="form-control" id="inputEmail" placeholder="Email" maxlength="128">
+									</div>
+								</div>
+								<div id="grupoTelefono" class="form-group">
+									<label for="inputTelefono" class="col-sm-4 control-label">Teléfono *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputTelefono" placeholder="Teléfono" maxlength="12">
+									</div>
+								</div>
+								<div id="grupoNumeroColegiado" class="form-group">
+									<label for="inputNumeroColegiado" class="col-sm-4 control-label">Nº de colegiado</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inputNumeroColegiado" placeholder="Número de colegiado" maxlength="64">
+									</div>
+								</div>
+								<div id="grupoCargo" class="form-group">
+									<label for="inputCargo" class="col-sm-4 control-label">Cargo *</label>
+									<div class="col-sm-8">
+										<select id="inputCargo" name="inputCargo" class="form-control">
+											<option value="2">Médico</option>
+											<option value="3">Enfermero</option>
+											<option value="4">Celador</option>
+											<option value="1">Médico residente</option>
+											<option value="5">Enfermero residente</option>
+											<option value="0">Otro</option>
+										</select>
+									</div>
+								</div>
+								<div id="grupoCliente" class="form-group">
+									<label for="inputCliente" class="col-sm-4 control-label">Cliente *</label>
+									<div class="col-sm-8">
+										<select id="inputCliente" name="inputCliente" class="form-control"></select>
+									</div>
+								</div>
+								<div id="grupoClave" class="form-group">
+									<label for="inputClave" class="col-sm-4 control-label">Clave *</label>
+									<div class="col-sm-8">
+										<input type="password" class="form-control" id="inputClave" placeholder="Clave" maxlength="16">
+										<p id="help-clave" class="help-block">Mínimo 8 caracteres alfanuméricos.</p>
+									</div>
+								</div>
+								<div id="grupoRepetirClave" class="form-group">
+									<label for="inputRepetirClave" class="col-sm-4 control-label">Repetir clave *</label>
+									<div class="col-sm-8">
+										<input type="password" class="form-control" id="inputRepetirClave" placeholder="Repetir clave" maxlength="16">
+									</div>
+								</div>
+								<div id="grupoCondiciones" class="form-group" style="margin-top: 20px; padding-left: 40px;">
+									<div class="col-sm-12">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<p class="text-center"><strong>Términos y condiciones</strong></p><br>
+												<strong>Responsable:</strong> LOS BILLARES CATERING, S.L.<br>
+												<strong>Finalidad:</strong> Llevar a cabo el registro del usuario en la página web.<br>
+												<strong>Legitimación:</strong> Consentimiento del interesado para registrarse en la página web.<br>
+												<strong>Derechos:</strong> Tiene derecho a acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional.<br>
+												<strong>Información adicional:</strong> Puede consultar la información adicional en el siguiente enlace.<br> <br>
+												<a href="https://losbillares.com/sobre-nosotros/politica-de-privacidad/" target="_blank">Ver la política de privacidad</a>
+											</div>
+										</div>
+										<p id="help-clave" class="help-block">
+											<input type="checkbox" id="inputCondiciones" name="inputCondiciones" value="true">&nbsp;<label for="inputCondiciones" style="font-weight: normal;">He leído y aceptado las condiciones</label>
+										</p>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" onclick="javascript:grabarUsuario()">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar
+							</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal - Mensaje general de error -->
+			<div class="modal fade bs-example-modal-sm" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="modal-error-label" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal-error-label">Error</h4>
+						</div>
+						<div class="modal-body" id="mensajeError"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal - Mensaje general de ok -->
+			<div class="modal fade bs-example-modal-sm" id="modal-ok" tabindex="-1" role="dialog" aria-labelledby="modal-error-ok" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal-ok-label">Información</h4>
+						</div>
+						<div class="modal-body" id="mensajeOk"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal - Confirmar grabacion del registro -->
+			<div class="modal fade bs-example-modal-sm" id="modal-confirmar-grabacion" tabindex="-1" role="dialog" aria-labelledby="modal-confirmar-grabacion-label" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal-confirmar-grabacion-label">Confirmación</h4>
+						</div>
+						<div class="modal-body">A continuación, será dado de alta como usuario del centro de salud. ¿Desea continuar?</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" onclick="javascript:confirmarGrabacion();">Aceptar</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+    </div> <!-- /container -->
+
+		 <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="includes/jquery-1.11.1.min.js"></script>
+		<script src="includes/bootstrap/js/bootstrap.min.js"></script>
+    <script src="includes/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+		<script src="js/login.js"></script>
+  
+</body>
