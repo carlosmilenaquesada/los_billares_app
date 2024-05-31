@@ -11,55 +11,71 @@ class _RememberPassword extends State<RememberPassword> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Column(
-        children: [
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Text(
-                'Registro',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                textAlign: TextAlign.center,
+              ],
+            ),
+            Text(
+              'Recordar clave',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(height: 16),
-              Form(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Email *',
-                          hintText: 'Introduzca su email de acceso.'),
-                      onSaved: (value) {
-                        email = value!;
-                      },
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Campo requerido";
-                        }
-                        final bool emailValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value);
-                        if (!emailValid) {
-                          return "Email con formato no válido";
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
+              textAlign: TextAlign.center,
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                  labelText: 'Email *',
+                  hintText: 'Introduzca su email de acceso.'),
+              onSaved: (value) {
+                email = value!;
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Campo requerido";
+                }
+                final bool emailValid = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    .hasMatch(value);
+                if (!emailValid) {
+                  return "Email con formato no válido";
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    //Lógica de recordar contraseña
+                    Navigator.of(context).pop(); // Cerrar el diálogo
+                  },
+                  child: Text('Aceptar'),
                 ),
-              ),
-            ],
-          ),*/
-        ],
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Cerrar el diálogo
+                  },
+                  child: Text('Cancelar'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

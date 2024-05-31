@@ -6,20 +6,24 @@ class SingUpForm extends StatefulWidget {
 }
 
 class _SingUpFormState extends State<SingUpForm> {
-  late String authCode;
-  late String name;
-  late String lastName;
-  late String dni;
-  late String email;
-  late String phoneNumber;
-  late String memberNumber;
+  final TextEditingController authCode = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController dni = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController memberNumber = TextEditingController();
   String jobPosition = "2";
   String customer = "2";
-  late String password;
-  late String repeatPassword;
+  final TextEditingController password = TextEditingController();
+  final TextEditingController repeatPassword = TextEditingController();
   bool acceptedConditions = false;
 
-  GlobalKey formKey = GlobalKey<FormState>();
+  void _signup() {
+    //lógica del signup
+  }
+
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -54,15 +58,13 @@ class _SingUpFormState extends State<SingUpForm> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  controller: authCode,
                   decoration: InputDecoration(
                     labelText: 'Código Autorización *',
                     hintText: 'Código aut. dado por Los billares',
                     hintStyle: TextStyle(
                         color: Colors.grey), // Cambiar el color del hint
                   ),
-                  onSaved: (value) {
-                    authCode = value!;
-                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Campo requerido";
@@ -71,10 +73,8 @@ class _SingUpFormState extends State<SingUpForm> {
                   },
                 ),
                 TextFormField(
+                  controller: name,
                   decoration: InputDecoration(labelText: 'Nombre *'),
-                  onSaved: (value) {
-                    name = value!;
-                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Campo requerido";
@@ -83,10 +83,8 @@ class _SingUpFormState extends State<SingUpForm> {
                   },
                 ),
                 TextFormField(
+                  controller: lastName,
                   decoration: InputDecoration(labelText: 'Apellidos *'),
-                  onSaved: (value) {
-                    lastName = value!;
-                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Campo requerido";
@@ -95,19 +93,15 @@ class _SingUpFormState extends State<SingUpForm> {
                   },
                 ),
                 TextFormField(
+                  controller: dni,
                   decoration: InputDecoration(labelText: 'DNI'),
-                  onSaved: (value) {
-                    dni = value!;
-                  },
                   validator: (value) {
                     return null;
                   },
                 ),
                 TextFormField(
+                  controller: email,
                   decoration: InputDecoration(labelText: 'Email *'),
-                  onSaved: (value) {
-                    email = value!;
-                  },
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -123,10 +117,8 @@ class _SingUpFormState extends State<SingUpForm> {
                   },
                 ),
                 TextFormField(
+                  controller: phoneNumber,
                   decoration: InputDecoration(labelText: 'Teléfono *'),
-                  onSaved: (value) {
-                    phoneNumber = value!;
-                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Campo requerido";
@@ -140,10 +132,8 @@ class _SingUpFormState extends State<SingUpForm> {
                   },
                 ),
                 TextFormField(
+                  controller: memberNumber,
                   decoration: InputDecoration(labelText: 'Nº de colegiado'),
-                  onSaved: (value) {
-                    memberNumber = value!;
-                  },
                   validator: (value) {
                     return null;
                   },
@@ -186,10 +176,8 @@ class _SingUpFormState extends State<SingUpForm> {
                     },
                     decoration: InputDecoration(labelText: 'Cliente *')),
                 TextFormField(
+                  controller: password,
                   decoration: InputDecoration(labelText: 'Clave *'),
-                  onSaved: (value) {
-                    password = value!;
-                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Campo requerido";
@@ -201,15 +189,15 @@ class _SingUpFormState extends State<SingUpForm> {
 
                     if (!RegExp(r'[a-z]', caseSensitive: false)
                         .hasMatch(value)) {
-                      message += "La clave debe contener al menos una letra";
+                      message += "\nLa clave debe contener al menos una letra";
                     }
 
                     if (!RegExp(r'[A-Z]').hasMatch(value)) {
                       message +=
-                          "La clave debe contener al menos una mayúscula";
+                          "\nLa clave debe contener al menos una mayúscula";
                     }
                     if (!RegExp(r'\d').hasMatch(value)) {
-                      message += "La clave debe contener al menos un número";
+                      message += "\nLa clave debe contener al menos un número";
                     }
                     if (message.isEmpty) {
                       return null;
@@ -223,15 +211,13 @@ class _SingUpFormState extends State<SingUpForm> {
                   textAlign: TextAlign.left,
                 ),
                 TextFormField(
+                  controller: repeatPassword,
                   decoration: InputDecoration(labelText: 'Repetir clave *'),
-                  onSaved: (value) {
-                    repeatPassword = value!;
-                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Campo requerido";
                     }
-                    if (value != password) {
+                    if (value != password.text) {
                       return "La clave repetida es distinta a la inicial";
                     }
                     return null;
@@ -278,15 +264,23 @@ class _SingUpFormState extends State<SingUpForm> {
                     ],
                   ),
                 ),
+                SizedBox(height: 10),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Checkbox(
-                        value: acceptedConditions,
-                        onChanged: (value) {
-                          acceptedConditions = !acceptedConditions;
-                          value = acceptedConditions;
-                        }),
-                    Text("He leído y aceptado las condiciones."),
+                      value: acceptedConditions,
+                      onChanged: (value) {
+                        setState(() {
+                          acceptedConditions = value ?? false;
+                        });                        
+                      },                      
+                    ),
+                    Flexible(
+                      child: Text(
+                        "He leído y aceptado las condiciones.",
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 40),
@@ -295,12 +289,14 @@ class _SingUpFormState extends State<SingUpForm> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Aquí puedes agregar la lógica para registrar al usuario
-                        Navigator.of(context).pop(); // Cerrar el diálogo
+                        if (formKey.currentState!.validate() && acceptedConditions) {
+                          _signup;
+                          Navigator.of(context).pop(); // Cerrar el diálogo
+                        }
                       },
                       child: Text('Aceptar'),
                     ),
-                    SizedBox(width: 10),
+                    Spacer(),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // Cerrar el diálogo

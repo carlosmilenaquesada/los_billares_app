@@ -24,7 +24,11 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  
+  
+
   void _login() {
+    //lógica del login
     print('Email: ${_emailController.text}');
     print('Password: ${_passwordController.text}');
   }
@@ -55,6 +59,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +70,7 @@ class LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Form(
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -87,6 +93,12 @@ class LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Campo requerido";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 16),
                 TextFormField(
@@ -96,6 +108,12 @@ class LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Campo requerido";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -103,7 +121,11 @@ class LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.symmetric(vertical: 16),
                     textStyle: TextStyle(fontSize: 18),
                   ),
-                  onPressed: _login,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      _login;
+                    }
+                  },
                   child: Text('Acceder'),
                 ),
                 SizedBox(height: 16),
