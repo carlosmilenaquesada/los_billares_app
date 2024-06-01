@@ -6,28 +6,31 @@ class SingUpForm extends StatefulWidget {
 }
 
 class _SingUpFormState extends State<SingUpForm> {
-  final TextEditingController authCode = TextEditingController();
+  final TextEditingController authenticationCode = TextEditingController();
   final TextEditingController name = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController dni = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController memberNumber = TextEditingController();
+
   String jobPosition = "2";
   String customer = "2";
   final TextEditingController password = TextEditingController();
   final TextEditingController repeatPassword = TextEditingController();
   bool acceptedConditions = false;
+  bool showErrorCheckboxMessage = false;
 
+  
   void _signup() {
     //lógica del signup
   }
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -58,7 +61,7 @@ class _SingUpFormState extends State<SingUpForm> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  controller: authCode,
+                  controller: authenticationCode,
                   decoration: InputDecoration(
                     labelText: 'Código Autorización *',
                     hintText: 'Código aut. dado por Los billares',
@@ -265,34 +268,54 @@ class _SingUpFormState extends State<SingUpForm> {
                   ),
                 ),
                 SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Column(
                   children: [
-                    Checkbox(
-                      value: acceptedConditions,
-                      onChanged: (value) {
-                        setState(() {
-                          acceptedConditions = value ?? false;
-                        });                        
-                      },                      
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: acceptedConditions,
+                          onChanged: (value) {
+                            setState(() {
+                              acceptedConditions = value ?? false;
+                            });
+                          },
+                        ),
+                        Flexible(
+                          child: Text(
+                            "He leído y aceptado las condiciones.",
+                          ),
+                        ),
+                      ],
                     ),
-                    Flexible(
-                      child: Text(
-                        "He leído y aceptado las condiciones.",
-                      ),
+                    Row(
+                      children: [
+                        if (showErrorCheckboxMessage)
+                          Flexible(
+                            child: Text(
+                              "Debe aceptar los términos para continuar.",
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ],
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        if (formKey.currentState!.validate() && acceptedConditions) {
-                          _signup;
+                        if (_formKey.currentState!.validate() &&
+                            acceptedConditions) {
+                          _signup();
                           Navigator.of(context).pop(); // Cerrar el diálogo
+                          return;
                         }
+                        showErrorCheckboxMessage = !acceptedConditions;
+                        setState(() {});
                       },
                       child: Text('Aceptar'),
                     ),

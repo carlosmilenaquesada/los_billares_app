@@ -6,11 +6,17 @@ class RememberPassword extends StatefulWidget {
 }
 
 class _RememberPassword extends State<RememberPassword> {
-  late String email;
+  final TextEditingController password = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
+  void _rememberPassword() {
+    //Lógica del remember password
+
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -38,9 +44,6 @@ class _RememberPassword extends State<RememberPassword> {
               decoration: InputDecoration(
                   labelText: 'Email *',
                   hintText: 'Introduzca su email de acceso.'),
-              onSaved: (value) {
-                email = value!;
-              },
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Campo requerido";
@@ -60,8 +63,10 @@ class _RememberPassword extends State<RememberPassword> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    //Lógica de recordar contraseña
-                    Navigator.of(context).pop(); // Cerrar el diálogo
+                    if (formKey.currentState!.validate()) {
+                      _rememberPassword();
+                      Navigator.of(context).pop(); // Cerrar el diálogo
+                    }                 
                   },
                   child: Text('Aceptar'),
                 ),
