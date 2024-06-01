@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/menu_selection.dart';
 
 import 'package:flutter_application/remember_password.dart';
 import 'package:flutter_application/signup_form.dart';
 
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -28,23 +28,18 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    print("haciendo");
-    final String url = 'http://cs.losbillares.com/principal.php';
-    final Map<String, String> formData = {
-      'email': _emailController.text,
-      'clave': _passwordController.text,
-    };
 
-    try {
+    /*try {
       final http.Response response = await http.post(
         Uri.parse('http://cs.losbillares.com/operaciones/opLogin.php'),
         body: formData,
       );
-
       if (response.statusCode == 302) {
         // Redirigir a la URL proporcionada en la cabecera de redirección
-        final String? redirectUrl = response.headers['location'];
-        Navigator.pushReplacementNamed(context, redirectUrl!);
+        //final String? redirectUrl = response.headers['location'];
+        //Navigator.pushReplacementNamed(context, redirectUrl!);
+
+
       } else if (response.statusCode == 200) {
         // Aquí puedes manejar la respuesta del servidor
         // Puedes navegar a la página principal si el login es exitoso
@@ -56,6 +51,10 @@ class LoginScreenState extends State<LoginScreen> {
     } catch (error) {
       // Manejar errores de red u otros errores
       print('Error: $error');
+    }*/
+
+    if(true){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSelection()));
     }
   }
 
