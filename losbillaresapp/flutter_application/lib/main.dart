@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/menu_selection.dart';
 
 import 'package:flutter_application/remember_password.dart';
 import 'package:flutter_application/signup_form.dart';
-
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -24,37 +26,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: "raul@cano.net");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "Demo2015");
 
   Future<void> _login() async {
+    final String url = 'http://cs.losbillares.com/operaciones/opLogin.php';
+    final Map<String, String> formData = {
+      'email': _emailController.text,
+      'clave': _passwordController.text,
+    };
 
-    /*try {
+    try {
       final http.Response response = await http.post(
-        Uri.parse('http://cs.losbillares.com/operaciones/opLogin.php'),
-        body: formData,
+        Uri.parse(url),
+        body: formData
       );
-      if (response.statusCode == 302) {
-        // Redirigir a la URL proporcionada en la cabecera de redirección
-        //final String? redirectUrl = response.headers['location'];
-        //Navigator.pushReplacementNamed(context, redirectUrl!);
-
-
-      } else if (response.statusCode == 200) {
-        // Aquí puedes manejar la respuesta del servidor
-        // Puedes navegar a la página principal si el login es exitoso
-        Navigator.pushReplacementNamed(context, '/principal');
-      } else {
-        // Manejar otros códigos de estado según sea necesario
-        print('Error en la solicitud HTTP: ${response.statusCode}');
-      }
+      print(response.headers);
     } catch (error) {
-      // Manejar errores de red u otros errores
       print('Error: $error');
-    }*/
-
-    if(true){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSelection()));
     }
   }
 
@@ -148,10 +139,8 @@ class LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      print("pulsado");
                       _login();
                     }
-                    print("pulsado2");
                   },
                   child: Text('Acceder'),
                 ),
