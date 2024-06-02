@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class RememberPassword extends StatefulWidget {
+class RememberPasswordForm extends StatefulWidget {
   @override
-  State<RememberPassword> createState() => _RememberPassword();
+  RememberPasswordFormState createState() => RememberPasswordFormState();
 }
 
-class _RememberPassword extends State<RememberPassword> {
+class RememberPasswordFormState extends State<RememberPasswordForm> {
   final TextEditingController password = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void _rememberPassword() {
+  void _rememberPasswordInitializer() {
     //Lógica del remember password
 
   }
@@ -64,7 +64,7 @@ class _RememberPassword extends State<RememberPassword> {
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      _rememberPassword();
+                      _rememberPasswordInitializer();
                       Navigator.of(context).pop(); // Cerrar el diálogo
                     }                 
                   },

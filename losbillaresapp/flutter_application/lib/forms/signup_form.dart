@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class SingUpForm extends StatefulWidget {
   @override
-  State<SingUpForm> createState() => _SingUpFormState();
+  SingUpFormState createState() => SingUpFormState();
 }
 
-class _SingUpFormState extends State<SingUpForm> {
+class SingUpFormState extends State<SingUpForm> {
   final TextEditingController authenticationCode = TextEditingController();
   final TextEditingController name = TextEditingController();
   final TextEditingController lastName = TextEditingController();
@@ -22,7 +22,7 @@ class _SingUpFormState extends State<SingUpForm> {
   bool showErrorCheckboxMessage = false;
 
   
-  void _signup() {
+  void _signupInitializer() {
     //lógica del signup
   }
 
@@ -310,7 +310,7 @@ class _SingUpFormState extends State<SingUpForm> {
                       onPressed: () {
                         if (_formKey.currentState!.validate() &&
                             acceptedConditions) {
-                          _signup();
+                          _signupInitializer();
                           Navigator.of(context).pop(); // Cerrar el diálogo
                           return;
                         }
