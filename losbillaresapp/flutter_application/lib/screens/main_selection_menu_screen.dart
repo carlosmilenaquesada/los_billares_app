@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/models/dish_info.dart';
+import 'package:flutter_application/screens/change_menu_screen.dart';
+import 'package:flutter_application/widgets/custom_dish_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -223,185 +225,10 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      _lunchFirstDish.dishType.text,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            child: SingleChildScrollView(
-                                              child: Container(
-                                                padding: EdgeInsets.all(16.0),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        
-                                                        IconButton(
-                                                          icon:
-                                                              Icon(Icons.close),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.all(16.0),
-                                                      child: Text(
-                                                        _lunchFirstDish
-                                                            .dishName.text,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle: FontStyle
-                                                              .italic, // Estilo negrita
-                                                          fontSize:
-                                                              18, // Tamaño de fuente a 18
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    // nombre del plato
-                                                    Image.network(_lunchFirstDish
-                                                        .urlDishImage
-                                                        .text), // imagen del plato
-                                                    ..._lunchFirstDish
-                                                        .dishDescriptions
-                                                        .asMap()
-                                                        .entries
-                                                        .map(
-                                                      (entry) {
-                                                        int index = entry.key;
-                                                        TextEditingController
-                                                            controller =
-                                                            entry.value;
-
-                                                        if (index % 2 == 0) {
-                                                          return Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: 16.0),
-                                                            child: Text(
-                                                              controller.text,
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold, // Estilo negrita
-                                                                fontSize:
-                                                                    18, // Tamaño de fuente a 18
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        return Container(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Text(
-                                                            controller.text,
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  16, // Tamaño de fuente a 18
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      child: Text(
-                                        _lunchFirstDish.dishName.text,
-                                        style:
-                                            TextStyle(color: Color(0xFF333333)),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Segundo plato',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Tortilla de patatas con cebolla',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Postre',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Tarta de oreo',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Bebida',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Agua',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
                             SizedBox(height: 16),
                             Container(
                               margin: EdgeInsets.only(top: 10),
@@ -414,95 +241,22 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Primer plato',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Gazpacho de almendras',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Segundo plato',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Empanada de atún con tomate',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Postre',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Fruta',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Bebida',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Agua',
-                                      style:
-                                          TextStyle(color: Color(0xFF333333)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
+                            CustomDishWidget(dishInfo: _lunchFirstDish),
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               alignment: Alignment.center,
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => ChangeMenuScreen(
+                                          dateTime: _selectedDay),
+                                    ),
+                                  );
+                                },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

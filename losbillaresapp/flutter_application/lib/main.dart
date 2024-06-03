@@ -1,3 +1,4 @@
+import 'package:flutter_application/screens/change_menu_screen.dart';
 import 'package:flutter_application/screens/login_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: LoginScreen(),
       //home: MainSelectionMenuScreen(response: http.Response('Custom Response', 200)),
+      //home: ChangeMenuScreen(dateTime: DateTime.now()),
     );
   }
 }
