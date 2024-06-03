@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //home: LoginScreen(),
-      home: MainSelectionMenuScreen(response: http.Response('Custom Response', 200)),
+      home: LoginScreen(),
+      //home: MainSelectionMenuScreen(response: http.Response('Custom Response', 200)),
     );
   }
 }

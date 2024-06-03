@@ -1,0 +1,1 @@
+- los close de las ventanas (X) se ocultan cuando se hace scroll hacia abajo. Implementar mejora par que se muestren siempre

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/models/dish_info.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/date_symbol_data_local.dart'; // Importa el paquete intl
+import 'package:intl/date_symbol_data_local.dart';
 
 class MainSelectionMenuScreen extends StatefulWidget {
   final http.Response response;
@@ -14,11 +15,31 @@ class MainSelectionMenuScreen extends StatefulWidget {
 
 class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
   bool _isContainerInfoVisible = true;
-  late CalendarFormat _calendarFormat = CalendarFormat.month;
-  late DateTime _focusedDay = DateTime.now();
-  late DateTime _selectedDay = DateTime.now();
-  late DateTime _firstDay = DateTime.utc(2010, 1, 1);
-  late DateTime _lastDay = DateTime.utc(2040, 12, 31);
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
+  DateTime _firstDay = DateTime.utc(2010, 1, 1);
+  DateTime _lastDay = DateTime.utc(2040, 12, 31);
+
+  late DishInfo _lunchFirstDish = DishInfo(
+      "Primer plato",
+      "Ensalada de pasta",
+      [
+        "Ingredientes",
+        "Pasta alimenticia y compuesta  a las espinacas y al tomate (72%) (sémola de TRIGO duro, pasta alimenticia compuesta a las  espinacas (sémola de TRIGO duro, espinacas deshidratadas (2,5%), pasta alimenticia compuesta al tomate(sémola de TRIGO duro concentrado doble de tomate (5%)), fumet (agua, MERLUZA), vianda de mejillón (MOLUSCO) (Mytilus  chilensis ), calamar troceado (CALAMAR, agua),ATÚN migas (ATUN, aceite de girasol y sal), aceite de oliva virgen extra, sal yodada, vinagre de vino  (conservante E220 SULFITOS), ajo, guindilla molida, perejil y harina de maíz (almidón de  maíz).",
+        "Alérgenos",
+        "Contiene gluten, pescado, molusco, sulfitos, puede contener crustáceos y puede contener trazas de huevo, mostaza y soja.",
+        "Valor nutricional",
+        "786,4kJ / 187,89kcal"
+      ],
+      "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/52bf/live/5bc2da50-f03a-11ee-93c8-19dcc8295613.jpg");
+  /*late DishInfo _lunchSecondDish;
+  late DishInfo _lunchDessert;
+  late DishInfo _lunchDrink;
+  late DishInfo _dinnerFirstDish;
+  late DishInfo _dinnerSecondDish;
+  late DishInfo _dinnerDessert;
+  late DishInfo _dinnerDrink;*/
 
   void localeSync() async {
     await initializeDateFormatting('es_ES', null);
@@ -47,10 +68,10 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                       borderRadius: BorderRadius.circular(12.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black26, // Color de la sombra
-                          blurRadius: 10.0, // Suaviza la sombra
-                          spreadRadius: 1.0, // Extiende la sombra
-                          offset: Offset(0, 4), // Desplaza la sombra
+                          color: Colors.black26,
+                          blurRadius: 10.0,
+                          spreadRadius: 1.0,
+                          offset: Offset(0, 4),
                         ),
                       ],
                     ),
@@ -112,10 +133,10 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                     borderRadius: BorderRadius.circular(12.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black26, // Color de la sombra
-                        blurRadius: 10.0, // Suaviza la sombra
-                        spreadRadius: 1.0, // Extiende la sombra
-                        offset: Offset(0, 4), // Desplaza la sombra
+                        color: Colors.black26,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0,
+                        offset: Offset(0, 4),
                       ),
                     ],
                   ),
@@ -162,10 +183,10 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                     borderRadius: BorderRadius.circular(12.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black26, // Color de la sombra
-                        blurRadius: 10.0, // Suaviza la sombra
-                        spreadRadius: 1.0, // Extiende la sombra
-                        offset: Offset(0, 4), // Desplaza la sombra
+                        color: Colors.black26,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0,
+                        offset: Offset(0, 4),
                       ),
                     ],
                   ),
@@ -208,16 +229,108 @@ class MainSelectionMenuScreenState extends State<MainSelectionMenuScreen> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'Primer plato',
+                                      _lunchFirstDish.dishType.text,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap: () => print("hola"),
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            child: SingleChildScrollView(
+                                              child: Container(
+                                                padding: EdgeInsets.all(16.0),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        
+                                                        IconButton(
+                                                          icon:
+                                                              Icon(Icons.close),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
+                                                      child: Text(
+                                                        _lunchFirstDish
+                                                            .dishName.text,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontStyle: FontStyle
+                                                              .italic, // Estilo negrita
+                                                          fontSize:
+                                                              18, // Tamaño de fuente a 18
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // nombre del plato
+                                                    Image.network(_lunchFirstDish
+                                                        .urlDishImage
+                                                        .text), // imagen del plato
+                                                    ..._lunchFirstDish
+                                                        .dishDescriptions
+                                                        .asMap()
+                                                        .entries
+                                                        .map(
+                                                      (entry) {
+                                                        int index = entry.key;
+                                                        TextEditingController
+                                                            controller =
+                                                            entry.value;
+
+                                                        if (index % 2 == 0) {
+                                                          return Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 16.0),
+                                                            child: Text(
+                                                              controller.text,
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold, // Estilo negrita
+                                                                fontSize:
+                                                                    18, // Tamaño de fuente a 18
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        return Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            controller.text,
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                                  16, // Tamaño de fuente a 18
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                       child: Text(
-                                        'Fideuá de marisco',
+                                        _lunchFirstDish.dishName.text,
                                         style:
                                             TextStyle(color: Color(0xFF333333)),
                                       ),
